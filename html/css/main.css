@@ -2,7 +2,7 @@
     font-family: 'Quicksand', sans-serif;
     text-align: center;
     font-weight: bold;
-
+    overflow: hidden;
 }
 
 #siteTitle
@@ -12,9 +12,27 @@
     padding-top: 20px;
     padding-bottom: 20px;
     font-size: 40px;
+    top: 10px;
 }
 
-.flexbox-container {
+#tab
+{
+    position: fixed;
+    top: 0;
+    background: #428BCA;
+    color: #fff;
+    font-size: 15px;
+    padding: 5px;
+    width: 100px;
+    text-align: center;
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+}
+#tab:hover {
+  background: #ca6644;
+}
+
+.screen {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -43,7 +61,7 @@ form
     font-size: 20px;
 }
 
-button {
+#submit {
     background: #428BCA;
     color: #fff;
     font-size: 20px;
@@ -57,9 +75,30 @@ button {
     cursor: pointer;
 }
 
-button:hover {
+#submit:hover {
   background: #ca6644;
 }
 
 .grow { transition: all .1s ease-in-out; }
 .grow:hover { transform: scale(1.1); }
+
+.screen
+{
+    transition-duration: 400ms;
+}
+
+.off-left
+{
+    transform: translate(-100%);
+    -webkit-transform: translate(-100%); 
+}
+
+.tab-left
+{
+    right: 100%;
+    margin-right: -110px;
+}
+.tab-right
+{
+    right: 0;
+}

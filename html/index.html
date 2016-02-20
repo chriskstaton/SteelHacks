@@ -21,23 +21,43 @@
                         $("#music").html(e);
                     });
                 });
+
+
+                var side = 0;
+                $("#tab").click(function() {
+                    if(side == 0)
+                    {
+                        $("#home").addClass("off-left");
+                        $("#tab").addClass("tab-left");
+                        $("#tab").removeClass("tab-right");
+                        $("#tab").html("Add Song");
+                        side = 1;
+                    }
+                    else
+                    {
+                        $("#home").removeClass("off-left");
+                        $("#tab").removeClass("tab-left");
+                        $("#tab").addClass("tab-right");
+                        $("#tab").html("Other Songs");
+                        side = 0;
+                    }
+                });
             });
         </script>
     </head>
     <body>
-        <div id="siteTitle">
-            Music, Literally
+        <div id="siteTitle">Music, Literally</div>
+        <div id="home" class="screen">
+                <form>
+                    <input id="title" placeholder="Enter title" maxlength="100" required>
+                    <br>
+                    <textarea id="text" placeholder="Enter up to 4000 characters" maxlength="4000" required></textarea>
+                    <br>
+                    <button type="submit" id="submit" class="grow">Generate</button>
+                </form>
+            <div id="music">
+            </div>
         </div>
-        <div class="flexbox-container">
-            <form>
-                <input id="title" placeholder="Enter title" maxlength="100" required>
-                <br>
-                <textarea id="text" placeholder="Enter up to 4000 characters" maxlength="4000" required></textarea>
-                <br>
-                <button type="submit" id="submit" class="grow">Generate</button>
-            </form>
-        </div>
-        <div id="music">
-        </div>
+        <div id="tab" class="tab-right grow">Other Songs</div>
     </body>
 </html>
