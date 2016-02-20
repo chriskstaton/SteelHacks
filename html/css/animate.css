@@ -1,0 +1,19 @@
+#piano
+{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.key
+{
+    height: 100px;
+    width: 100%;
+    margin-left: 1%;
+    transition: all 0.5s;
+}
+
+.active
+{
+    background: black;
+}

@@ -1,0 +1,102 @@
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="css/animate.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+        <script>
+            var keys = ["B6",
+                        "A6",
+                        "G6",
+                        "F6",
+                        "E6",
+                        "D6",
+                        "C6",
+                        "B5",
+                        "A5",
+                        "G5",
+                        "F5",
+                        "E5",
+                        "D5",
+                        "C5",
+                        "B4",
+                        "A4",
+                        "G4",
+                        "F4",
+                        "E4",
+                        "D4",
+                        "C4",
+                        "B3",
+                        "A3",
+                        "G3",
+                        "F3",
+                        "E3",
+                        "D3",
+                        "C3",
+                        "B2",
+                        "A2",
+                        "G2",
+                        "F2",
+                        "E2",
+                        "D2",
+                        "C2",
+                        ];
+            $(document).ready(function() {
+                setInterval(function() {
+                    var rand = Math.floor((Math.random() * keys.length));
+                    pressKey(keys[rand]);
+                }, 300);
+            });
+
+            function pressKey(key)
+            {
+                $("#" + key).addClass("active");
+                var stop = setInterval(function() {
+                    $("#" + key).removeClass("active");
+                    clearInterval(stop);
+                }, 200);
+            }
+        </script>
+    </head>
+    <body>
+        <div id="piano">
+            <div id="B6" class="key"></div>
+            <div id="A6" class="key"></div>
+            <div id="G6" class="key"></div>
+            <div id="F6" class="key"></div>
+            <div id="E6" class="key"></div>
+            <div id="D6" class="key"></div>
+            <div id="C6" class="key"></div>
+
+            <div id="B5" class="key"></div>
+            <div id="A5" class="key"></div>
+            <div id="G5" class="key"></div>
+            <div id="F5" class="key"></div>
+            <div id="E5" class="key"></div>
+            <div id="D5" class="key"></div>
+            <div id="C5" class="key"></div>
+
+            <div id="B4" class="key"></div>
+            <div id="A4" class="key"></div>
+            <div id="G4" class="key"></div>
+            <div id="F4" class="key"></div>
+            <div id="E4" class="key"></div>
+            <div id="D4" class="key"></div>
+            <div id="C4" class="key"></div>
+
+            <div id="B3" class="key"></div>
+            <div id="A3" class="key"></div>
+            <div id="G3" class="key"></div>
+            <div id="F3" class="key"></div>
+            <div id="E3" class="key"></div>
+            <div id="D3" class="key"></div>
+            <div id="C3" class="key"></div>
+
+            <div id="B2" class="key"></div>
+            <div id="A2" class="key"></div>
+            <div id="G2" class="key"></div>
+            <div id="F2" class="key"></div>
+            <div id="E2" class="key"></div>
+            <div id="D2" class="key"></div>
+            <div id="C2" class="key"></div>
+        </div>
+    </body>
+</html>
