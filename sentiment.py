@@ -1,12 +1,14 @@
 from textblob import TextBlob
 import json
 
+import sys
+
+print("number of arguments:", len(sys.argv), "arguments")
+print("argument list:", str(sys.argv))
+
 class sentiment:
-    
-    with open("bernie.txt", "r+") as f:
-        fread = f.read()
             
-    def getSentiment(text):
+    def getSentiment(sys.argv[1]):
 
         sentence_count = 0
         total_sent = 0
@@ -28,13 +30,13 @@ class sentiment:
             word_list.append(word_count)
                 
         fn = list(zip(word_list, sentiment_list))
-        final = json.dumps(fn, indent=2)
-
         avg_sent = total_sent / sentence_count
+        fn.append(avg_sent)
+        final = json.dumps(fn, indent=2)
 
         return final
     
-    with open("bernie.txt", "r+") as f:
+    with open("sent_test.txt", "r+") as f:
         fread = f.read()
 
     this = getSentiment(fread)
