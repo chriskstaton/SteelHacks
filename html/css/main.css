@@ -110,8 +110,10 @@ form
 {
     right: 100%;
     margin-right: -110px;
+    border-bottom-right-radius: 5px;
 }
 .tab-right
 {
     right: 0;
+    border-bottom-left-radius: 5px;
 }
