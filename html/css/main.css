@@ -5,13 +5,26 @@
     overflow: hidden;
 }
 
+input
+{
+    border: 1px #cccccc solid;
+    border-radius: 5px;
+    padding: 5px;
+}
+textarea
+{
+    border: 1px #cccccc solid;
+    border-radius: 5px;
+    padding: 5px;
+}
+
 #siteTitle
 {
     position: fixed;
     width: 100%;
     padding-top: 20px;
     padding-bottom: 20px;
-    font-size: 40px;
+    font-size: 50px;
     top: 10px;
 }
 
