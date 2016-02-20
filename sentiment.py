@@ -7,8 +7,13 @@ print("number of arguments:", len(sys.argv), "arguments")
 print("argument list:", str(sys.argv))
 
 class sentiment:
+<<<<<<< HEAD
             
     def getSentiment(sys.argv[1]):
+=======
+    
+    def getSentiment(text):
+>>>>>>> 3eb957a20b43fd9d1860c17a7c2b49a74b8e114d
 
         sentence_count = 0
         total_sent = 0
