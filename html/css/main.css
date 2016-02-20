@@ -1,0 +1,65 @@
+*{
+    font-family: 'Quicksand', sans-serif;
+    text-align: center;
+    font-weight: bold;
+
+}
+
+#siteTitle
+{
+    position: fixed;
+    width: 100%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    font-size: 40px;
+}
+
+.flexbox-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+}
+
+form
+{
+    width: 100%;
+}
+#title
+{
+    width: 50%;
+    margin-bottom: 20px;
+    text-align: left;
+    font-size: 20px;
+}
+#text
+{
+    width: 50%;
+    height: 250px;
+    resize: none;
+    margin-bottom: 20px;
+    text-align: left;
+    font-size: 20px;
+}
+
+button {
+    background: #428BCA;
+    color: #fff;
+    font-size: 20px;
+    height: 60px;
+    width: 150px;
+    line-height: 60px;
+    text-align: center;
+    border: 0;
+    border-radius: 20px;
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+}
+
+button:hover {
+  background: #ca6644;
+}
+
+.grow { transition: all .1s ease-in-out; }
+.grow:hover { transform: scale(1.1); }

@@ -2,6 +2,10 @@
     <head>
         <title>Words, Literally</title>
 
+        <link rel="stylesheet" type="text/css" href="css/main.css">
+
+        <link href='https://fonts.googleapis.com/css?family=Quicksand:400,700' rel='stylesheet' type='text/css'>
+
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
         <script>
             $(document).ready(function() {
@@ -21,14 +25,18 @@
         </script>
     </head>
     <body>
-        <form>
-            <input id="title" placeholder="Enter title" maxlength="100" required>
-            <br>
-            <textarea id="text" placeholder="Enter text" maxlength="4000" required></textarea>
-            <br>
-            <button type="submit" id="submit">Submit</button>
-        </form>
-        <br>
+        <div id="siteTitle">
+            Music, Literally
+        </div>
+        <div class="flexbox-container">
+            <form>
+                <input id="title" placeholder="Enter title" maxlength="100" required>
+                <br>
+                <textarea id="text" placeholder="Enter up to 4000 characters" maxlength="4000" required></textarea>
+                <br>
+                <button type="submit" id="submit" class="grow">Generate</button>
+            </form>
+        </div>
         <div id="music">
         </div>
     </body>
