@@ -42,6 +42,7 @@ class sentiment:
     this = getSentiment(fread)
     print(this)
 
+
     
     
 
