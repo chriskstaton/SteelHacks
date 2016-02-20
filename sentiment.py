@@ -3,9 +3,6 @@ import json
 
 class sentiment:
     
-    with open("bernie.txt", "r+") as f:
-        fread = f.read()
-            
     def getSentiment(text):
 
         sentence_count = 0
