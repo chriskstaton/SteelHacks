@@ -3,12 +3,12 @@ import json
 
 import sys
 
-print("number of arguments:", len(sys.argv), "arguments")
-print("argument list:", str(sys.argv))
+#print("number of arguments:", len(sys.argv), "arguments")
+#print("argument list:", str(sys.argv))
 
 class sentiment:
 
-    def getSentiment(sys.argv[1]):
+    def getSentiment(text):
                 
         sentence_count = 0
         total_sent = 0
@@ -41,6 +41,9 @@ class sentiment:
 
     this = getSentiment(fread)
     print(this)
+
+    
+
 
 
     
