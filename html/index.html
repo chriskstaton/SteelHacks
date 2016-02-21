@@ -1,20 +1,19 @@
 <html>
     <head>
-        <title>Words, Literally</title>
+        <title>Music, Literally</title>
 
         <link rel="stylesheet" type="text/css" href="css/main.css">
 
         <link href='https://fonts.googleapis.com/css?family=Quicksand:400,700' rel='stylesheet' type='text/css'>
+        <link rel="icon" type="image/png" href="favicon.png" />
 
         <script src="js/music.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
         <script>
             var keys = [];
             var letters = ["C", "C#", "D","D#", "E", "F","F#", "G","G#", "A", "A#", "B"];
-            
-            $(document).ready(function() {
 
-                $("#loading").addClass("nodisplay");
+            $(document).ready(function() {
 
                 for(var i = 0; i < letters.length; i++)
                 {
@@ -40,26 +39,25 @@
                     if(title && text)
                     {
                         var dataJSON = {"title":title, "text":text};
-                        
+
                         $("form").addClass("nodisplay");
                         $("#loading").removeClass("nodisplay");
 
                         $.post("send.php", dataJSON, function(e) {
                             $("#loading").addClass("nodisplay");
-                            
-                            var json = '{"length":"2", "0":{"note":"C","octave":"1"},"1":{"note":"E","octave":"4"}}';
+                            $("#another").removeClass("nodisplay");
+                            $("#piano").removeClass("nodisplay");
 
-                            var parsed = JSON.parse(json);
-                            var parsedLength = parsed["length"];
+                            var parsed = JSON.parse(e);
                             var arr = [];
-                            for(var i = 0; i < parsedLength; i++)
+                            for(var i = 0; i < parsed.length; i++)
                             {
-                                arr.push([parsed[i]["note"], parsed[i]["octave"]]);
+                                arr.push([parsed[i][0], parsed[i][1], parsed[i][2], parsed[i][3]]);
                             }
 
                             playSong(arr);
                         });
- 
+
                     }
                 });
 
@@ -67,12 +65,30 @@
 
                 function playSong(array)
                 {
-                    playing = setInterval(function() {
+                    function playing()
+                    {
                         if(i >= array.length)
                             i = 0;
-                        pressKey(array[i][0], array[i][1]);
+                        pressKey(array[i][0], array[i][1], array[i][2], array[i][3]);
+                        setTimeout(playing, array[i][2] * 1000);
                         i++;
-                    }, 500);
+                    }
+
+                    setTimeout(playing, array[0][2] * 1000)
+
+                }
+
+                function loadOthers()
+                {
+                    $.post("others.php", {}, function(e) {
+                        var parsed = JSON.parse(e);
+                        var parsedLength = parsed["length"];
+
+                        for(var i = 0; i < parsedLength; i++)
+                        {
+                            $("#list").append("<li>" + parsed[i] + "</li>");
+                        }
+                    });
                 }
 
 
@@ -82,14 +98,17 @@
                     if(side == 0)
                     {
                         $("#home").addClass("off-left");
+                        $("#other").removeClass("off-right");
                         $("#tab").addClass("tab-left");
                         $("#tab").removeClass("tab-right");
                         $("#tab").html("Add Song");
                         side = 1;
+                        loadOthers();
                     }
                     else
                     {
                         $("#home").removeClass("off-left");
+                        $("#other").addClass("off-right");
                         $("#tab").removeClass("tab-left");
                         $("#tab").addClass("tab-right");
                         $("#tab").html("Other Songs");
@@ -97,15 +116,26 @@
                     }
                 });
 
-                function pressKey(note, octave)
+                $("#another").click(function() {
+                    clearInterval(playing);
+                    $("#piano").addClass("nodisplay");
+                    $("#another").addClass("nodisplay");
+                    $("form").removeClass("nodisplay");
+
+                });
+
+                function pressKey(note, octave, duration, word)
                 {
-                    Synth.play(0, note, octave, 2);
+                    Synth.play(0 , note, octave, duration/10);
                     var sharp = "";
                     if(note.length > 1)
                         sharp = "-";
+                    $("#word").html(word);
+                    $("#word").css("color", "black");
                     $("#" + note.charAt(0) + sharp + octave).addClass("active");
                     var stop = setInterval(function() {
                         $("#" + note.charAt(0) + sharp + octave).removeClass("active");
+                        $("#word").css("color", "white");
                         clearInterval(stop);
                     }, 200);
                 }
@@ -114,8 +144,9 @@
     </head>
     <body>
         <div id="siteTitle">Music, Literally</div>
+        <div><p id="siteDescrip">Hear the music behind your the words. Input your darkest quote or your favorite prose and we will detect the mood, creating a symphony from your words.</p></div>
         <div id="home" class="screen">
-            <div id="loading">
+            <div id="loading" class="nodisplay">
                 <div class="spinner">
                   <div class="rect1"></div>
                   <div class="rect2"></div>
@@ -129,12 +160,19 @@
                 <br>
                 <textarea id="text" placeholder="Enter up to 4000 characters" maxlength="4000" required></textarea>
                 <br>
-                <button type="submit" id="submit" class="grow">Generate</button>
+                <button type="submit" id="submit" class="mybtn grow">Generate</button>
                 <br>
                 <br>
             </form>
+            <div id="word"></div>
             <div id="piano">
             </div>
+            <button type="submit" id="another" class="mybtn grow nodisplay">Try Another</button>
+        </div>
+        <div id="other" class="screen off-right">
+            <ul id="list">
+                Existing Songs:
+            </ul>
         </div>
         <div id="tab" class="tab-right grow">Other Songs</div>
     </body>

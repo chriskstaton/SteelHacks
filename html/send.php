@@ -14,13 +14,15 @@
 
     $id = mysql_fetch_row($countResult)[0];
 
-    $insertQuery = "INSERT INTO  texts (id, title, text) VALUES (0, '$title', '$text')";
+    $insertQuery = "INSERT INTO  texts (id, title, text) VALUES ($id, '$title', '$text')";
     $insertResult = mysql_query($insertQuery);
 
     mysql_close($connection);
 
 
-    $command = escapeshellcmd('python pythontest.py "'. $text . '"');
+    $command = escapeshellcmd('python sentiment.py "' . $text . '"');
     $output = shell_exec($command);
+
+    echo $output;
 
 ?>

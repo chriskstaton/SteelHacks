@@ -1,3 +1,2 @@
-import sys
-
-print sys.argv[1]
+import nltk
+print nltk.data.find('.')

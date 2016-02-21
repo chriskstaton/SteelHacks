@@ -28,6 +28,15 @@ textarea
     top: 10px;
 }
 
+#siteDescrip
+{
+   position: fixed;
+   width = 60%;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  font-size: 20px;
+
+}
 #tab
 {
     position: fixed;
@@ -46,6 +55,7 @@ textarea
 }
 
 .screen {
+    position: fixed;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -76,7 +86,7 @@ form
     font-size: 20px;
 }
 
-#submit {
+.mybtn {
     background: #428BCA;
     color: #fff;
     font-size: 20px;
@@ -90,7 +100,7 @@ form
     cursor: pointer;
 }
 
-#submit:hover {
+.mybtn:hover {
   background: #ca6644;
 }
 
@@ -105,7 +115,13 @@ form
 .off-left
 {
     transform: translate(-100%);
-    -webkit-transform: translate(-100%); 
+    -webkit-transform: translate(-100%);
+}
+
+.off-right
+{
+    transform: translate(100%);
+    -webkit-transform: translate(100%);
 }
 
 .tab-left
@@ -125,6 +141,7 @@ form
     display: flex;
     flex-direction: row;
     width: 100%;
+    margin-bottom: 20px;
 }
 
 .key
@@ -165,7 +182,7 @@ form
   height: 100%;
   width: 6px;
   display: inline-block;
-  
+
   -webkit-animation: sk-stretchdelay 1.2s infinite ease-in-out;
   animation: sk-stretchdelay 1.2s infinite ease-in-out;
 }
@@ -191,16 +208,21 @@ form
 }
 
 @-webkit-keyframes sk-stretchdelay {
-  0%, 40%, 100% { -webkit-transform: scaleY(0.4) }  
+  0%, 40%, 100% { -webkit-transform: scaleY(0.4) }
   20% { -webkit-transform: scaleY(1.0) }
 }
 
 @keyframes sk-stretchdelay {
-  0%, 40%, 100% { 
+  0%, 40%, 100% {
     transform: scaleY(0.4);
     -webkit-transform: scaleY(0.4);
-  }  20% { 
+  }  20% {
     transform: scaleY(1.0);
     -webkit-transform: scaleY(1.0);
   }
+}
+
+#word
+{
+    transition: all 0.5s;
 }
