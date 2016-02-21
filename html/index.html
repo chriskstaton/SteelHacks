@@ -6,25 +6,79 @@
 
         <link href='https://fonts.googleapis.com/css?family=Quicksand:400,700' rel='stylesheet' type='text/css'>
 
+        <script src="js/music.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
         <script>
+            var keys = [];
+            var letters = ["C", "C#", "D","D#", "E", "F","F#", "G","G#", "A", "A#", "B"];
+            
             $(document).ready(function() {
+
+                $("#loading").addClass("nodisplay");
+
+                for(var i = 0; i < letters.length; i++)
+                {
+                    for(var k = 1; k < 5; k++)
+                    {
+                        keys.push([letters[i], k]);
+                        if(letters[i].length > 1){
+                            $("#piano").append('<div id="' + letters[i].charAt(0) + "-" +  k + '" class="key"></div>');
+                        }
+                        else
+                            $("#piano").append('<div id="' + letters[i] + k + '" class="key"></div>');
+
+                    }
+                }
+
                 $("form").submit(function(e) {
                     e.preventDefault();
                 });
                 $("#submit").click(function() {
                     var title = $("#title").val();
                     var text = $("#text").val();
-                    var dataJSON = {"title":title, "text":text};
 
-                    $.post("send.php", dataJSON, function(e) {
-                        $("#music").html(e);
-                    });
+                    if(title && text)
+                    {
+                        var dataJSON = {"title":title, "text":text};
+                        
+                        $("form").addClass("nodisplay");
+                        $("#loading").removeClass("nodisplay");
+
+                        $.post("send.php", dataJSON, function(e) {
+                            $("#loading").addClass("nodisplay");
+                            
+                            var json = '{"length":"2", "0":{"note":"C","octave":"1"},"1":{"note":"E","octave":"4"}}';
+
+                            var parsed = JSON.parse(json);
+                            var parsedLength = parsed["length"];
+                            var arr = [];
+                            for(var i = 0; i < parsedLength; i++)
+                            {
+                                arr.push([parsed[i]["note"], parsed[i]["octave"]]);
+                            }
+
+                            playSong(arr);
+                        });
+ 
+                    }
                 });
+
+                var playing;
+
+                function playSong(array)
+                {
+                    playing = setInterval(function() {
+                        if(i >= array.length)
+                            i = 0;
+                        pressKey(array[i][0], array[i][1]);
+                        i++;
+                    }, 500);
+                }
 
 
                 var side = 0;
                 $("#tab").click(function() {
+                    clearInterval(playing);
                     if(side == 0)
                     {
                         $("#home").addClass("off-left");
@@ -42,22 +96,44 @@
                         side = 0;
                     }
                 });
+
+                function pressKey(note, octave)
+                {
+                    Synth.play(0, note, octave, 2);
+                    var sharp = "";
+                    if(note.length > 1)
+                        sharp = "-";
+                    $("#" + note.charAt(0) + sharp + octave).addClass("active");
+                    var stop = setInterval(function() {
+                        $("#" + note.charAt(0) + sharp + octave).removeClass("active");
+                        clearInterval(stop);
+                    }, 200);
+                }
             });
         </script>
     </head>
     <body>
         <div id="siteTitle">Music, Literally</div>
         <div id="home" class="screen">
-                <form>
-                    <input id="title" placeholder="Enter title" maxlength="100" required>
-                    <br>
-                    <textarea id="text" placeholder="Enter up to 4000 characters" maxlength="4000" required></textarea>
-                    <br>
-                    <button type="submit" id="submit" class="grow">Generate</button>
-                    <br>
-                    <br>
-                </form>
-            <div id="music">
+            <div id="loading">
+                <div class="spinner">
+                  <div class="rect1"></div>
+                  <div class="rect2"></div>
+                  <div class="rect3"></div>
+                  <div class="rect4"></div>
+                  <div class="rect5"></div>
+                </div>
+            </div>
+            <form>
+                <input id="title" placeholder="Enter title" maxlength="100" required>
+                <br>
+                <textarea id="text" placeholder="Enter up to 4000 characters" maxlength="4000" required></textarea>
+                <br>
+                <button type="submit" id="submit" class="grow">Generate</button>
+                <br>
+                <br>
+            </form>
+            <div id="piano">
             </div>
         </div>
         <div id="tab" class="tab-right grow">Other Songs</div>
