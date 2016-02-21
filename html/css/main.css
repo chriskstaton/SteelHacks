@@ -46,6 +46,7 @@ textarea
 }
 
 .screen {
+    position: fixed;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -76,7 +77,7 @@ form
     font-size: 20px;
 }
 
-#submit {
+.mybtn {
     background: #428BCA;
     color: #fff;
     font-size: 20px;
@@ -90,7 +91,7 @@ form
     cursor: pointer;
 }
 
-#submit:hover {
+.mybtn:hover {
   background: #ca6644;
 }
 
@@ -106,6 +107,12 @@ form
 {
     transform: translate(-100%);
     -webkit-transform: translate(-100%); 
+}
+
+.off-right
+{
+    transform: translate(100%);
+    -webkit-transform: translate(100%); 
 }
 
 .tab-left
@@ -125,6 +132,7 @@ form
     display: flex;
     flex-direction: row;
     width: 100%;
+    margin-bottom: 20px;
 }
 
 .key

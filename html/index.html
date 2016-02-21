@@ -14,8 +14,6 @@
             
             $(document).ready(function() {
 
-                $("#loading").addClass("nodisplay");
-
                 for(var i = 0; i < letters.length; i++)
                 {
                     for(var k = 1; k < 5; k++)
@@ -46,6 +44,9 @@
 
                         $.post("send.php", dataJSON, function(e) {
                             $("#loading").addClass("nodisplay");
+                            $("#another").removeClass("nodisplay");
+                            $("#piano").removeClass("nodisplay");
+
                             
                             var json = '{"length":"2", "0":{"note":"C","octave":"1"},"1":{"note":"E","octave":"4"}}';
 
@@ -82,6 +83,7 @@
                     if(side == 0)
                     {
                         $("#home").addClass("off-left");
+                        $("#other").removeClass("off-right");
                         $("#tab").addClass("tab-left");
                         $("#tab").removeClass("tab-right");
                         $("#tab").html("Add Song");
@@ -90,11 +92,20 @@
                     else
                     {
                         $("#home").removeClass("off-left");
+                        $("#other").addClass("off-right");
                         $("#tab").removeClass("tab-left");
                         $("#tab").addClass("tab-right");
                         $("#tab").html("Other Songs");
                         side = 0;
                     }
+                });
+
+                $("#another").click(function() {
+                    clearInterval(playing);
+                    $("#piano").addClass("nodisplay");
+                    $("#another").addClass("nodisplay");
+                    $("form").removeClass("nodisplay");
+
                 });
 
                 function pressKey(note, octave)
@@ -115,7 +126,7 @@
     <body>
         <div id="siteTitle">Music, Literally</div>
         <div id="home" class="screen">
-            <div id="loading">
+            <div id="loading" class="nodisplay">
                 <div class="spinner">
                   <div class="rect1"></div>
                   <div class="rect2"></div>
@@ -129,12 +140,18 @@
                 <br>
                 <textarea id="text" placeholder="Enter up to 4000 characters" maxlength="4000" required></textarea>
                 <br>
-                <button type="submit" id="submit" class="grow">Generate</button>
+                <button type="submit" id="submit" class="mybtn grow">Generate</button>
                 <br>
                 <br>
             </form>
             <div id="piano">
             </div>
+            <button type="submit" id="another" class="mybtn grow nodisplay">Try Another</button>
+        </div>
+        <div id="other" class="screen off-right">
+            <ul id="list">
+                Existing Songs:
+            </ul>
         </div>
         <div id="tab" class="tab-right grow">Other Songs</div>
     </body>
