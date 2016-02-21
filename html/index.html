@@ -6,13 +6,13 @@
 
         <link href='https://fonts.googleapis.com/css?family=Quicksand:400,700' rel='stylesheet' type='text/css'>
         <link rel="icon" type="image/png" href="favicon.png" />
-        
+
         <script src="js/music.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
         <script>
             var keys = [];
             var letters = ["C", "C#", "D","D#", "E", "F","F#", "G","G#", "A", "A#", "B"];
-            
+
             $(document).ready(function() {
 
                 for(var i = 0; i < letters.length; i++)
@@ -39,7 +39,7 @@
                     if(title && text)
                     {
                         var dataJSON = {"title":title, "text":text};
-                        
+
                         $("form").addClass("nodisplay");
                         $("#loading").removeClass("nodisplay");
 
@@ -57,7 +57,7 @@
 
                             playSong(arr);
                         });
- 
+
                     }
                 });
 
@@ -144,6 +144,7 @@
     </head>
     <body>
         <div id="siteTitle">Music, Literally</div>
+        <div><p id="siteDescrip">Hear the music behind your the words. Input your darkest quote or your favorite prose and we will detect the mood, creating a symphony from your words.</p></div>
         <div id="home" class="screen">
             <div id="loading" class="nodisplay">
                 <div class="spinner">
@@ -164,7 +165,7 @@
                 <br>
             </form>
             <div id="word"></div>
-            <div id="piano"> 
+            <div id="piano">
             </div>
             <button type="submit" id="another" class="mybtn grow nodisplay">Try Another</button>
         </div>
