@@ -79,7 +79,13 @@
                 function loadOthers()
                 {
                     $.post("others.php", {}, function(e) {
-                        console.log(e);
+                        var parsed = JSON.parse(e);
+                        var parsedLength = parsed["length"];
+
+                        for(var i = 0; i < parsedLength; i++)
+                        {
+                            $("#list").append("<li><button class='thingy' value='" + i + "'>" + parsed[i] + "</button></li>");
+                        }
                     });
                 }
 
@@ -128,6 +134,7 @@
                         clearInterval(stop);
                     }, 200);
                 }
+
             });
         </script>
     </head>
