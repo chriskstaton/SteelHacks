@@ -76,6 +76,13 @@
                     }, 500);
                 }
 
+                function loadOthers()
+                {
+                    $.post("others.php", {}, function(e) {
+                        console.log(e);
+                    });
+                }
+
 
                 var side = 0;
                 $("#tab").click(function() {
@@ -88,6 +95,7 @@
                         $("#tab").removeClass("tab-right");
                         $("#tab").html("Add Song");
                         side = 1;
+                        loadOthers();
                     }
                     else
                     {
