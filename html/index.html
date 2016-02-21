@@ -47,15 +47,11 @@
                             $("#another").removeClass("nodisplay");
                             $("#piano").removeClass("nodisplay");
 
-                            
-                            var json = '{"length":"2", "0":{"note":"C","octave":"1"},"1":{"note":"E","octave":"4"}}';
-
-                            var parsed = JSON.parse(json);
-                            var parsedLength = parsed["length"];
+                            var parsed = JSON.parse(e);
                             var arr = [];
-                            for(var i = 0; i < parsedLength; i++)
+                            for(var i = 0; i < parsed.length; i++)
                             {
-                                arr.push([parsed[i]["note"], parsed[i]["octave"]]);
+                                arr.push([parsed[i][0], parsed[i][1], parsed[i][2], parsed[i][3]]);
                             }
 
                             playSong(arr);
@@ -68,12 +64,17 @@
 
                 function playSong(array)
                 {
-                    playing = setInterval(function() {
+                    function playing()
+                    {
                         if(i >= array.length)
                             i = 0;
-                        pressKey(array[i][0], array[i][1]);
+                        pressKey(array[i][0], array[i][1], array[i][2], array[i][3]);
+                        setTimeout(playing, array[i][2] * 1000);
                         i++;
-                    }, 500);
+                    }
+
+                    setTimeout(playing, array[0][2] * 1000)
+
                 }
 
                 function loadOthers()
@@ -122,19 +123,21 @@
 
                 });
 
-                function pressKey(note, octave)
+                function pressKey(note, octave, duration, word)
                 {
-                    Synth.play(0, note, octave, 2);
+                    Synth.play(0 , note, octave, duration/10);
                     var sharp = "";
                     if(note.length > 1)
                         sharp = "-";
+                    $("#word").html(word);
+                    $("#word").css("color", "black");
                     $("#" + note.charAt(0) + sharp + octave).addClass("active");
                     var stop = setInterval(function() {
                         $("#" + note.charAt(0) + sharp + octave).removeClass("active");
+                        $("#word").css("color", "white");
                         clearInterval(stop);
                     }, 200);
                 }
-
             });
         </script>
     </head>
@@ -159,7 +162,8 @@
                 <br>
                 <br>
             </form>
-            <div id="piano">
+            <div id="word"></div>
+            <div id="piano"> 
             </div>
             <button type="submit" id="another" class="mybtn grow nodisplay">Try Another</button>
         </div>

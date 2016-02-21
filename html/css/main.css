@@ -212,3 +212,8 @@ form
     -webkit-transform: scaleY(1.0);
   }
 }
+
+#word
+{
+    transition: all 0.5s;
+}

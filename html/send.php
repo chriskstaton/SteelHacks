@@ -20,7 +20,9 @@
     mysql_close($connection);
 
 
-    $command = escapeshellcmd('python pythontest.py "'. $text . '"');
+    $command = escapeshellcmd('python sentiment.py "' . $text . '"');
     $output = shell_exec($command);
+
+    echo $output;
 
 ?>
