@@ -44,7 +44,7 @@ class sentiment:
     with open("sent_test.txt", "r+") as f:
         fread = f.read()
 
-    final = getSentiment(fread)
+    final = getSentiment(sys.argv[1])
 
     word_list = final[0]
     sentiment_list = final[1]
@@ -83,7 +83,7 @@ class sentiment:
         c_mjr = ["C","D","E","F","G","A","B"]                     #middle
         g_mjr = ["G", "A", "B", "C", "D", "E", "F#"]   #slight happy
         d_minor = ["D", "E", "F", "G", "A", "A#", "C"]        #slight sad
-        d_mjr = ["D", "E", "F♯", "G", "A", "B","C#"]         #super happy
+        d_mjr = ["D", "E", "F#", "G", "A", "B","C#"]         #super happy
         g_minor = ["G", "A", "A#", "C", "D", "D#","F"]           #super sad
 
         octave = 3

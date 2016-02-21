@@ -48,6 +48,8 @@
                             $("#another").removeClass("nodisplay");
                             $("#piano").removeClass("nodisplay");
 
+                            console.log(e);
+
                             var parsed = JSON.parse(e);
                             var arr = [];
                             for(var i = 0; i < parsed.length; i++)
@@ -70,11 +72,11 @@
                         if(i >= array.length)
                             i = 0;
                         pressKey(array[i][0], array[i][1], array[i][2], array[i][3]);
-                        setTimeout(playing, array[i][2] * 1000);
+                        setTimeout(playing, array[i][2] * 2000);
                         i++;
                     }
 
-                    setTimeout(playing, array[0][2] * 1000)
+                    setTimeout(playing, array[0][2] * 2000)
 
                 }
 
@@ -126,7 +128,7 @@
 
                 function pressKey(note, octave, duration, word)
                 {
-                    Synth.play(0 , note, octave, duration/10);
+                    Synth.play(0 , note, octave, 1);
                     var sharp = "";
                     if(note.length > 1)
                         sharp = "-";
@@ -144,7 +146,7 @@
     </head>
     <body>
         <div id="siteTitle">Music, Literally</div>
-        <div><p id="siteDescrip">Hear the music behind your the words. Input your darkest quote or your favorite prose and we will detect the mood, creating a symphony from your words.</p></div>
+        <div id="siteDescrip">Hear the music behind your the words. Input your darkest quote or your favorite prose and we will detect the mood, creating a symphony from your words.</div>
         <div id="home" class="screen">
             <div id="loading" class="nodisplay">
                 <div class="spinner">

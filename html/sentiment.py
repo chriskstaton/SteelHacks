@@ -2,12 +2,13 @@ from textblob import TextBlob
 import json
 
 import sys
+import random
 
 #print("number of arguments:", len(sys.argv), "arguments")
 #print("argument list:", str(sys.argv))
 
 class sentiment:
-            
+
     def getSentiment(text):
 
         sentence_count = 0
@@ -16,7 +17,8 @@ class sentiment:
         blob = TextBlob(text)
         sentiment_list = []
         word_list = []
-        
+        word_count_list = []
+
         for sentence in blob.sentences:
             sent = round(sentence.sentiment.polarity, 3)
             total_sent += sent
@@ -26,143 +28,118 @@ class sentiment:
             i = " "
             words = sentence.split(" ")
             for i in words:
+                word_list.append(i)
                 word_count += 1
-            word_list.append(word_count)
-                
-        final = list(zip(word_list, sentiment_list))
+            word_count_list.append(word_count)
+
+
+        #for i in sentiment_list:
+
+
+
+        final = [word_list, sentiment_list, word_count_list]
 
         return final
 
-    this = getSentiment(sys.argv[1])
 
-    sents = []
-    i = 0
-    for i in this:
-        sents.append(i[1])
+    final = getSentiment(sys.argv[1])
 
-    words = []
-    for i in this:
-        words.append(i[0])
+    word_list = final[0]
+    sentiment_list = final[1]
+    word_count_list = final[2]
 
+
+    '''
     durations = []
     for i in words:
-        duration = round((i * 0.4),3)
+        duration = 1.6 / i
         durations.append(duration)
-    
+    #print(durations)
+    '''
+
 
     notes = []
 
-    for i in sents:
-        if i < -.85:
-            notes.append(["C",0])
-        elif i < -.83:
-            notes.append(["C#",0])
-        elif i < -.80:
-            notes.append(["D", 0])
-        elif i < -.78:
-            notes.append(["D#",0])
-        elif i < -.75:
-            notes.append(["E",0])
-        elif i < -.72:
-            notes.append(["F",0])
-        elif i < -.69:
-            notes.append(["F#",0])
-        elif i < -.66:
-            notes.append(["G",0])
-        elif i < -.63:
-            notes.append(["G#",0])
-        elif i < -.60:
-            notes.append(["A",0])
-        elif i < -.59:
-            notes.append(["A#",0])
-        elif i < -.56:
-            notes.append(["B",0])
-        elif i < -.53:
-            notes.append(["C",1])
-        elif i < -.50:
-            notes.append(["C#",1])
-        elif i < -.46:
-            notes.append(["D",1])
-        elif i < -.42:
-            notes.append(["D#",1])
-        elif i < -.39:
-            notes.append(["E",1])
-        elif i < -.30:
-            notes.append(["F",1])
-        elif i < -.25:
-            notes.append(["F#",1])
-        elif i < -.21:
-            notes.append(["G",1])
-        elif i < -.19:
-            notes.append(["G#",1])
-        elif i < -.15:
-            notes.append(["A",1])
-        elif i < -.13:
-            notes.append(["A#",1])
-        elif i < -.10:
-            notes.append(["B",1])
-        elif i < -.05:
-            notes.append(["C",2])
-        elif i < 0:
-            notes.append(["C#",2])
-        elif i < .05:
-            notes.append(["D",2])
-        elif i < .08:
-            notes.append(["D#",2])
-        elif i < .12:
-            notes.append(["E",2])
-        elif i < .17:
-            notes.append(["F",2])
-        elif i < .20:
-            notes.append(["G",2])
-        elif i < .23:
-            notes.append(["G#",2])
-        elif i < .27:
-            notes.append(["A",2])
-        elif i < .33:
-            notes.append(["A#",2])
-        elif i < .38:
-            notes.append(["B",2])
-        elif i < .40:
-            notes.append(["C",3])
-        elif i < .43:
-            notes.append(["C#",3])
-        elif i < .47:
-            notes.append(["D",3])
-        elif i < .52:
-            notes.append(["D#",3])
-        elif i < .56:
-            notes.append(["E",3])
-        elif i < .59:
-            notes.append(["F",3])
-        elif i < .69:
-            notes.append(["G",3])
-        elif i < .78:
-            notes.append(["G#",3])
-        elif i < .81:
-            notes.append(["A",3])
-        elif i < .89:
-            notes.append(["A#",3])
-        elif i < 1:
-            notes.append(["B",3])             
+    blob = TextBlob(sys.argv[1])
+
+    words_list = []
+
+    sentiment_list = []
+    for sentence in blob.sentences:
+        sent = round(sentence.sentiment.polarity, 3)
+        sentiment_list.append(sent)
+        words = sentence.split(" ")
+        for word in words:
+            words_list.append(word)
+
+
+    def pitchOctave(sent):
+        #declare arrays
+
+        c_mjr = ["C","D","E","F","G","A","B"]                     #middle
+        g_mjr = ["G", "A", "B", "C", "D", "E", "F#"]   #slight happy
+        d_minor = ["D", "E", "F", "G", "A", "A#", "C"]        #slight sad
+        d_mjr = ["D", "E", "F#", "G", "A", "B","C#"]         #super happy
+        g_minor = ["G", "A", "A#", "C", "D", "D#","F"]           #super sad
+
+        octave = 3
+        rn = random.randint(0,6)
+
+        if sent < .4 and sent >= -.4:
+            pitch = c_mjr[rn]            # if in middle, retun a not in c major, create an array
+        elif sent > .4 and sent < .6:     # if more positive
+            pitch = g_mjr[rn]           # a little more happy
+            octave += 1
+        elif sent < -.4 and sent >-.6:  # if more negative
+            pitch = d_minor[rn]         # a little more sad
+            octave -=1
+        elif sent > .6:                #fuck im happy
+            pitch = d_mjr[rn]
+            octave += 2
+        elif sent > -.6:                 # worst
+            pitch = g_minor[rn]
+            octave -= 2
+
+        result = [pitch, octave]
+
+        return result
+
+    note_octave = []
+    for sentiment in sentiment_list:
+        note_octave.append(pitchOctave(sentiment))
+    
+
+    durations = []
+    for i in word_count_list:
+        duration = 1.4 / i
+        durations.append(duration)
+
     count = 0
     for i in durations:
-        notes[count].append(i)
-        count+=1
+        note_octave[count].append(i)
+        count += 1
+    
+    count = 0
+##
+##    words = []
+##    for i in this:
+##        words.append(i[0])
+##
+##    for i in words:
+##        note_octave[count].append(i)
+##        count += 1
 
-        
-    j = json.dumps(notes, indent = 2)
+
+    curCount = 0
+    curSent = 0
+    for i in word_count_list:
+        sentence = ""
+        for k in range(0, i):
+            sentence += word_list[curCount] + " "
+            curCount += 1
+        note_octave[curSent].append(sentence.encode("ascii"))
+        curSent += 1
+
+
+    j = json.dumps(note_octave, indent = 2)
     print(j)
-        
-    
-
-
-
-    
-    
-
-
-
-
-
-

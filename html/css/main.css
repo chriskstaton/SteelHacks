@@ -31,10 +31,13 @@ textarea
 #siteDescrip
 {
    position: fixed;
-   width = 60%;
+   width: 100%;
+  font-size: 20px;
   padding-top: 20px;
   padding-bottom: 20px;
-  font-size: 20px;
+  bottom: 0;
+  text-align: center;
+  color: gray;
 
 }
 #tab

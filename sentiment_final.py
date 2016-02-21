@@ -32,29 +32,22 @@ class sentiment:
         final = list(zip(word_list, sentiment_list))
 
         return final
-    
-    with open("sent_test.txt", "r+") as f:
-        fread = f.read()
 
-    this = getSentiment(fread)
-    print(this)
+    this = getSentiment(sys.argv[1])
 
     sents = []
     i = 0
     for i in this:
         sents.append(i[1])
-    print(sents)
 
     words = []
     for i in this:
         words.append(i[0])
-    print(words)
 
     durations = []
     for i in words:
         duration = round((i * 0.4),3)
         durations.append(duration)
-    print(durations)
     
 
     notes = []
