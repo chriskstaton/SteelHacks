@@ -1,0 +1,65 @@
+Pseudocode for making the notes, octaves and lengths
+
+MAIN LOOP
+
+for ( Every sentence in song )      // looping through each sentence  // i should probably say 'while still more sentences to read'
+{
+    int sent = FindSentenceSentiment;
+    for( Individual Word : in Sentence)
+    {
+        String po = return pitch/octave(sent);         //method call   ARGS  sentiment value,
+        int dur = return duration(sentenceSize)           //method call // ARGS  amount of words in sentence
+        add (po , dur ) to notes[];
+    }
+
+}
+
+    METHODS
+
+//    find sentence sentiment
+//        already written
+    method return pitch/octave ( sent) // sent = sentiment
+    {
+        C major array (C,D,E,F,G,A,B)               //middle
+        g major array (G, A, B, C, D, E, and F♯)    // slight happy
+        d minor (D, E, F, G, A, B♭, and C)          //slight sad
+        d major (D, E, F♯, G, A, B, and C♯)         //super happy
+        g minor G, A, B♭, C, D, E♭, and F           //super sad
+
+        string pitch; //note to retturn
+        int octave = 3; default
+
+        if ( sent < .4 && sent >-.4)
+        {
+            pitch = random note in C major (C,D,E,F,G,A,B);         // if in middle, retun a not in c major, create an array
+        }
+        else if ( sent > .4 && sent < .6) // if more positive
+        {
+            pitch = random note in g major (G, A, B, C, D, E, and F♯)    // a little more happy
+            oct +1
+        }
+        else if   (sent < -.4 && sent >-.6) // if more negative
+        {
+            pitch = random note in d minor (D, E, F, G, A, B♭, and C)    // a little more sad
+            oct -1
+        }
+        else if (sent > . 6)    //fuck im happy
+        {
+            pitch = random note d major (D, E, F♯, G, A, B, and C♯)
+            oct + 2
+        }
+        else if ( sent > -.6) // worst
+        {
+            pitch = random note g minor G, A, B♭, C, D, E♭, and F
+            oct - 2
+        }
+        return pitch, oct;
+    }
+    method return duration( sentenceSig minor G, A, B♭, C, D, E♭, and Fze)
+    {
+        total measure = 1.6 seconds
+
+        duration = 1.6 / sentenceSize
+
+        return duration;
+    }
